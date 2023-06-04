@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:vm="clr-namespace:VýukovýProgramMobile.ViewModels"
+             x:Class="VýukovýProgramMobile.MainPage">
+
+    <ContentPage.BindingContext>
+        <vm:MainPageViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout BackgroundColor="{Binding WindowBackgroundColor}">
+        <StackLayout IsVisible="{Binding IsMainLayoutVisible}" Orientation="Horizontal">
+            <StackLayout Spacing="0">
+                <Label Text="{Binding Topic}" TextColor="Black" BackgroundColor="Orange" FontAttributes="Bold" FontSize="24" HeightRequest="50"/>
+                <TableView Intent="Menu" BackgroundColor="#FFFFC14F">
+                    <TableSection>
+                        <TextCell Text="Vyjmenovaná slova po b" TextColor="Black" x:Name="tcVSB" Command="{Binding OnListTapCommand}" CommandParameter="{x:Reference tcVSB}"/>
+                        <TextCell Text="Vyjmenovaná slova po l" TextColor="Black" x:Name="tcVSL" Command="{Binding OnListTapCommand}" CommandParameter="{x:Reference tcVSL}"/>
+                        <TextCell Text="Vyjmenovaná slova po m" TextColor="Black" x:Name="tcVSM" Command="{Binding OnListTapCommand}" CommandParameter="{x:Reference tcVSM}"/>
+                        <TextCell Text="Vyjmenovaná slova po p" TextColor="Black" x:Name="tcVSP" Command="{Binding OnListTapCommand}" CommandParameter="{x:Reference tcVSP}"/>
+                        <TextCell Text="Vyjmenovaná slova po s" TextColor="Black" x:Name="tcVSS" Command="{Binding OnListTapCommand}" CommandParameter="{x:Reference tcVSS}"/>
+                        <TextCell Text="Vyjmenovaná slova po v" TextColor="Black" x:Name="tcVSV" Command="{Binding OnListTapCommand}" CommandParameter="{x:Reference tcVSV}"/>
+                        <TextCell Text="Vyjmenovaná slova po z" TextColor="Black" x:Name="tcVSZ" Command="{Binding OnListTapCommand}" CommandParameter="{x:Reference tcVSZ}"/>
+                        <TextCell Text="Vyjmenovaná slova - opakování" TextColor="Black" x:Name="tcVSO" Command="{Binding OnListTapCommand}" CommandParameter="{x:Reference tcVSO}"/>
+                    </TableSection>
+                </TableView>
+            </StackLayout>
+            <Grid HorizontalOptions="CenterAndExpand">
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                    <Button Text="Hrát" Font="Bold" FontSize="48" TextTransform="None" WidthRequest="250" HeightRequest="100" BackgroundColor="Lime" Command="{Binding OnPlayTapCommand}"/>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+
+        <Grid IsVisible="{Binding IsVyjmenovanáSlovaExerciseLayoutVisible}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="200" HeightRequest="70" BackgroundColor="#FF00B8B8">
+                    <Label Text="Životy:" FontAttributes="Bold" FontSize="36" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                    <Label Text="{Binding Lives}" FontAttributes="Bold" FontSize="36" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                </StackLayout>
+                <Button Grid.Column="2" Text="Ukončit" Font="Bold" FontSize="36" TextTransform="None" WidthRequest="200" HeightRequest="70" BackgroundColor="Red" Command="{Binding OnEndTapCommand}"/>
+                <StackLayout Grid.Column="4" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="200" HeightRequest="70" BackgroundColor="#FF00B8B8">
+                    <Label Text="Skóre:" FontAttributes="Bold" FontSize="36" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                    <Label Text="{Binding Score}" FontAttributes="Bold" FontSize="36" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                </StackLayout>
+            </Grid>
+            <Grid Grid.Row="3" HorizontalOptions="CenterAndExpand">
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label WidthRequest="400" HeightRequest="100" Text="{Binding Question}" FontAttributes="Bold" FontSize="48" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" BackgroundColor="#FF00B8B8"/>
+                </StackLayout>
+            </Grid>
+            <Grid Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="btnI" Text="{Binding BtnI}" Font="Bold" FontSize="36" TextTransform="None" WidthRequest="70" HeightRequest="70" BackgroundColor="Orange" Command="{Binding OnAnswerTapCommand}" CommandParameter="{x:Reference btnI}"/>
+                <Button x:Name="btnY" Grid.Column="2" Text="{Binding BtnY}" Font="Bold" FontSize="36" TextTransform="None" WidthRequest="70" HeightRequest="70" BackgroundColor="Yellow" Command="{Binding OnAnswerTapCommand}" CommandParameter="{x:Reference btnY}"/>
+            </Grid>
+        </Grid>
+
+        <StackLayout IsVisible="{Binding IsScoreLayoutVisible}" Orientation="Horizontal" VerticalOptions="FillAndExpand">
+            <StackLayout Spacing="0" BackgroundColor="#FF00B8B8">
+                <Label Text="Skóre:" FontAttributes="Bold" FontSize="48" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                <Label Text="{Binding Score}" FontAttributes="Bold" FontSize="48" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                <Label Text="Životy:" FontAttributes="Bold" FontSize="48" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                <Label Text="{Binding Lives}" FontAttributes="Bold" FontSize="48" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+            </StackLayout>
+            <Grid HorizontalOptions="CenterAndExpand">
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                    <Button Text="Ukončit" Font="Bold" FontSize="48" TextTransform="None" WidthRequest="250" HeightRequest="100" BackgroundColor="Red" Command="{Binding OnResetTapCommand}"/>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>
